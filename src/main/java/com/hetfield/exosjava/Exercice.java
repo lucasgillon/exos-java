@@ -1,20 +1,18 @@
 package com.hetfield.exosjava;
 
-import java.util.Arrays;
-
 public class Exercice {
-    public static int persistence(long n) {
-        if (n < 10) return 0;
+    public static int calculateYears(double principal, double interest, double tax, double desired) {
+        int years = 0;
+        while (principal < desired) {
+            principal += principal * interest * (1 - tax);
+            years++;
+        }
 
-        final long newN = Arrays.stream(String.valueOf(n).split(""))
-                .mapToLong(Long::valueOf)
-                .reduce(1, (acc, next) -> acc * next);
-
-        return persistence(newN) + 1;
+        return years;
     }
 
     public static void main(String[] args) {
-        System.out.println(persistence(4));
+        System.out.println(calculateYears(1000, 0.05, 0.18, 1100));
     }
 }
 
